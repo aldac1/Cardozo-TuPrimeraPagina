@@ -10,7 +10,7 @@ Aplicación web que permite gestionar clientes y prendas de ropa.
 ## Inicialización
 Obtener e ingresar al proyecto:
 ```bash
-git clone repositorio
+git clone `https://github.com/aldac1/Cardozo-TuPrimeraPagina.git`
 cd tienda_ropa
 ```
 
