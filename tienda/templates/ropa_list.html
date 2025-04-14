@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Ropa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+        nav a {
+            color: white;
+            margin-right: 1rem;
+            text-decoration: none;
+        }
+        main {
+            padding: 2rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Inicio</a>
+            <a href="{% url 'cliente_list' %}">Clientes</a>
+            <a href="{% url 'ropa_list' %}">Ropa</a>
+        </nav>
+    </header>
+
+    <h1>Lista de Ropa</h1>
+    <a href="{% url 'ropa_create' %}">Crear nueva prenda</a>
+
+    <ul>
+        {% for ropa in ropas %}
+            <li>
+                {{ ropa.nombre }} color {{ ropa.color }} - Talle {{ ropa.talla }}
+                <a href="{% url 'ropa_update' ropa.id %}">Editar</a> |
+                <a href="{% url 'ropa_delete' ropa.id %}">Eliminar</a>
+            </li>
+        {% empty %}
+            <li>No hay prendas registradas.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

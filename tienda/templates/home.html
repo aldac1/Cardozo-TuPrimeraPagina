@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Tienda de Ropa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #8e8e8e;
+            color: white;
+            padding: 1rem;
+        }
+        nav a {
+            color: white;
+            margin-right: 1rem;
+            text-decoration: none;
+        }
+        main {
+            padding: 2rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Inicio</a>
+            <a href="{% url 'cliente_list' %}">Clientes</a>
+            <a href="{% url 'ropa_list' %}">Ropa</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bienvenido a la Tienda de Ropa</h1>
+        <p>Sistema de gestión para la tienda. Aquí se podrán administrar clientes, prendas y registrar transacciones.</p>
+
+        <div class="section">
+            <h2>¿Qué podés hacer?</h2>
+            <div class="card">
+                <h3>Clientes</h3>
+                <p>Registrá nuevos clientes y visualizá la lista completa.</p>
+            </div>
+            <div class="card">
+                <h3>Ropa</h3>
+                <p>Agregá prendas al sistema con sus características básicas.</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

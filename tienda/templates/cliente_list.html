@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+        nav a {
+            color: white;
+            margin-right: 1rem;
+            text-decoration: none;
+        }
+        main {
+            padding: 2rem;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Inicio</a>
+            <a href="{% url 'cliente_list' %}">Clientes</a>
+            <a href="{% url 'ropa_list' %}">Ropa</a>
+        </nav>
+    </header>
+
+    <h1>Lista de Clientes</h1>
+    <a href="{% url 'cliente_create' %}">Crear nuevo cliente</a>
+
+    <ul>
+        {% for cliente in clientes %}
+            <li>
+                {{ cliente.nombre }} - {{ cliente.email }} - {{ cliente.telefono }}
+                <a href="{% url 'cliente_update' cliente.id %}">Editar</a> |
+                <a href="{% url 'cliente_delete' cliente.id %}">Eliminar</a>
+            </li>
+        {% empty %}
+            <li>No hay clientes registrados.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
