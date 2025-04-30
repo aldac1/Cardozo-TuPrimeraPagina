@@ -1,60 +1,108 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Ropa</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 1rem;
-        }
-        nav a {
-            color: white;
-            margin-right: 1rem;
-            text-decoration: none;
-        }
-        main {
-            padding: 2rem;
-        }
-        .section {
-            margin-bottom: 2rem;
-        }
-        .card {
-            border: 1px solid #ccc;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="{% url 'home' %}">Inicio</a>
-            <a href="{% url 'cliente_list' %}">Clientes</a>
-            <a href="{% url 'ropa_list' %}">Ropa</a>
-        </nav>
-    </header>
+{% extends 'base.html' %}
 
-    <h1>Lista de Ropa</h1>
-    <a href="{% url 'ropa_create' %}">Crear nueva prenda</a>
+{% load static %}
 
-    <ul>
-        {% for ropa in ropas %}
-            <li>
-                {{ ropa.nombre }} color {{ ropa.color }} - Talle {{ ropa.talla }}
-                <a href="{% url 'ropa_update' ropa.id %}">Editar</a> |
-                <a href="{% url 'ropa_delete' ropa.id %}">Eliminar</a>
-            </li>
-        {% empty %}
-            <li>No hay prendas registradas.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+
+
+{% block header %}
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">¡Compra con estilo!</h1>
+          <p class="lead fw-normal text-white-50 mb-0">¡Con este fabuloso listado de productos!</p>
+      </div>
+  </div>
+</header>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+
+    <!-- Nueva barra con el botón centrado -->
+    <div class="row mb-4">
+      <div class="col text-center">
+        <a class="btn btn-primary" href="{% url 'ropa_create' %}">Agregar nueva prenda</a>
+      </div>
+    </div>
+    <!-- Fin de la barra con el botón centrado -->
+    {% if ropas %}
+      <div class="text-center">
+          <h1 class="display-5 fw-bolder">Listado de Ropa</h1>
+      </div>
+      <br>
+    {% endif %}
+
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% if ropas %}
+        
+          {% for ropa in ropas %}
+
+            <div class="col mb-5 d-flex">
+                <div class="card h-100 shadow-sm">
+                    <!-- Product image-->
+                    {% if ropa.imagen %}
+                    <img src="{{ ropa.imagen.url }}" class="card-img-top" alt="{{ ropa.nombre }}">
+                    {% else %}
+                        <img src="{% static 'assets/image_not_available.png' %}" class="card-img-top" alt="Imagen no disponible">
+                    {% endif %}
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ropa.nombre}} - {{ropa.color}}</h5>
+                            <!-- Product size-->
+                            Talle: {{ ropa.get_talla_display }}
+                            <br>
+                            {% if ropa.stock > 0 %}
+                            ¡¡{{ ropa.stock }} unidades!!
+                            {% else %}
+                                <span class="text-danger">Sin stock</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                      <div class="d-flex justify-content-center mb-2">
+                        <a class="btn btn-outline-primary me-2" href="{% url 'ropa_update' ropa.id %}">
+                          <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a class="btn btn-outline-danger" href="{% url 'ropa_delete' ropa.id %}">
+                          <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                      </div>
+                      <div class="text-center">
+                        <a class="btn btn-outline-dark mt-2" href="{% url 'ropa_detail' ropa.id %}">
+                          <i class="bi bi-search"></i> Detalles
+                        </a>
+                      </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+
+            {% endfor %}
+        {% else %}
+        <div class="card-body p-4">
+          <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder">No hay ropa disponible</h5>
+              <br>
+              <img src="{% static 'assets/sad_face.png' %}" alt="no-clothers" class="rounded-circle mx-auto mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+          </div>
+      </div>
+          {% endif%}
+      </div>
+  </div>
+</section>
+
+{% endblock %}
+
+<div style="place-items: center;">
+  <a href="{% url 'ropa_create' %}">Agregar nueva prenda</a>
+
+</div>

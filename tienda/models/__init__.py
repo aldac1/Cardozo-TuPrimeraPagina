@@ -1,4 +1,4 @@
-from tienda.models.cliente import Cliente
+from usuarios.models.cliente import Cliente
 from tienda.models.ropa import Ropa
 
 

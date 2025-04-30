@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded">
+                <div class="row no-gutters">
+                    
+                    <!-- Imagen de la ropa -->
+                    <div class="col-md-5">
+                        {% if ropa.imagen %}
+                            <img src="{{ ropa.imagen.url }}" class="card-img-top img-fluid rounded-left" alt="{{ ropa.nombre }}">
+                        {% else %}
+                            <img src="{% static 'assets/image_not_available.png' %}" class="card-img-top img-fluid rounded-left" alt="Imagen no disponible">
+                        {% endif %}
+                    </div>
+
+                    <!-- Información de la ropa -->
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ ropa.nombre }}</h3>
+                            <p class="card-text">
+                                <strong>Color:</strong> {{ ropa.color }}<br>
+                                <strong>Talla:</strong> {{ ropa.talla }}<br>
+                                <strong>Stock disponible:</strong> 
+                                {% if ropa.stock > 0 %}
+                                    {{ ropa.stock }} unidades
+                                {% else %}
+                                    <span class="text-danger">Sin stock</span>
+                                {% endif %}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">Última actualización: {{ ropa.ultima_actualizacion|date:"d/m/Y H:i" }}</small>
+                            </p>
+
+                            <!-- Botón de volver -->
+                            <a href="{% url 'ropa_list' %}" class="btn btn-primary mt-3">
+                                <i class="bi bi-arrow-left-circle"></i> Volver a la Tienda
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

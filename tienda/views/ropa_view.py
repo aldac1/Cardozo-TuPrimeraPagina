@@ -1,33 +1,44 @@
-from django.shortcuts import render, redirect
+from django.views.generic import (
+    ListView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+    DetailView,
+)
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from tienda.models.ropa import Ropa
 from tienda.forms.formulario_ropa import RopaForm
 
-def ropa_list(request):
-    ropa = Ropa.objects.all()
-    return render(request, 'ropa_list.html', {'ropas': ropa})
 
-def ropa_create(request):
-    if request.method == 'POST':
-        form = RopaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('ropa_list')
-    else:
-        form = RopaForm()
-    return render(request, 'ropa_form.html', {'form': form})
+class RopaListView(LoginRequiredMixin, ListView):
+    model = Ropa
+    template_name = "ropa_list.html"
+    context_object_name = "ropas"
 
-def ropa_update(request, ropa_id):
-    prenda = Ropa.objects.get(id=ropa_id)
-    if request.method == 'POST':
-        form = RopaForm(request.POST, instance=prenda)
-        if form.is_valid():
-            form.save()
-            return redirect('ropa_list')
-    else:
-        form = RopaForm(instance=prenda)
-    return render(request, 'ropa_form.html', {'form': form})
 
-def ropa_delete(request, ropa_id):
-    prenda = Ropa.objects.get(id=ropa_id)
-    prenda.delete()
-    return redirect('ropa_list')
+class RopaCreateView(LoginRequiredMixin, CreateView):
+    model = Ropa
+    template_name = "ropa_form.html"
+    form_class = RopaForm
+    success_url = reverse_lazy("ropa_list")
+
+
+class RopaUpdateView(LoginRequiredMixin, UpdateView):
+    model = Ropa
+    form_class = RopaForm
+    template_name = "ropa_form.html"
+    success_url = reverse_lazy("ropa_list")
+
+
+
+class RopaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Ropa
+    template_name = "ropa_confirm_delete.html"
+    success_url = reverse_lazy("ropa_list")
+
+
+class RopaDetailView(LoginRequiredMixin, DetailView):
+    model = Ropa
+    template_name = "ropa_detail.html"
+    context_object_name = "ropa"

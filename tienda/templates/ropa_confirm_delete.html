@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+
+      <div class="p-4 border rounded shadow-sm bg-light text-center">
+        <h1 class="mb-4 text-danger">Eliminar Prenda</h1>
+
+        <p class="mb-4 fs-5">¿Estás seguro que deseas eliminar <strong>"{{ object }}"</strong>?</p>
+
+        <form method="post" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        </form>
+        <a href="{% url 'ropa_list' %}" class="btn btn-secondary ms-2"><i class="bi bi-arrow-left-circle"></i> Cancelar</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
