@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4 mx-auto" style="max-width: 600px;">
+        
+        <h2 class="text-center mb-4">Editar Perfil</h2>
+
+        <!-- Mostrar avatar actual -->
+        <div class="text-center mb-4">
+            {% if user.cliente.avatar %}
+                <img src="{{ user.cliente.avatar.url }}" alt="Avatar" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'assets/default_avatar.png' %}" alt="Default Avatar" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+            {% endif %}
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Estilizar campos del formulario -->
+            <div class="form-group mb-3">
+                {{ form.nombre.label_tag }}
+                {{ form.nombre }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form.apellido.label_tag }}
+                {{ form.apellido }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form.fecha_nacimiento.label_tag }}
+                {{ form.fecha_nacimiento }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form.dni.label_tag }}
+                {{ form.dni }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form.sexo.label_tag }}
+                {{ form.sexo }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form.telefono.label_tag }}
+                {{ form.telefono }}
+            </div>
+
+            <div class="form-group mb-3">
+                {{ form.direccion.label_tag }}
+                {{ form.direccion }}
+            </div>
+
+            <div class="form-group mb-4">
+                {{ form.avatar.label_tag }}
+                {{ form.avatar }}
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                <a href="{% url 'perfil' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
