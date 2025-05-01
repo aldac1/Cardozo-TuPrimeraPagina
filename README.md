@@ -1,7 +1,7 @@
 # Proyecto Django - Tienda de Ropa (Alda Cardozo)
 
 ## Descripción
-Aplicación web que permite gestionar clientes y prendas de ropa.
+Aplicación web que permite gestionar prendas de ropa.
 
 ## Requisitos
 - Python >=3.9
@@ -12,6 +12,11 @@ Obtener e ingresar al proyecto:
 ```bash
 git clone `https://github.com/aldac1/Cardozo-TuPrimeraPagina.git`
 cd tienda_ropa
+```
+
+Instalar dependencias a través del requirements.txt
+```bash
+pip install -r requirements.txt
 ```
 
 Aplicar migraciones para generar una base de datos local:
@@ -27,18 +32,27 @@ python manage.py runserver
 
 ## Funcionalidades
 1. Alta, Baja, Modificación:
-   1. CLientes
-   2. Ropa
+   1. Prenda de ropa.
 2. Vista de listado de ropa.
-3. Vista de listado de clientes.
+3. Gestión de clientes a través de:
+   1. Registro de nuevo usuario.
+   2. Detalle de perfil del usuario.
+   3. Edición del perfil del usuario.
+4. Acceso al administrador de Django. Vista de:
+   1. Ropa
+   2. Cliente
+
 
 ## Orden para probar
-1. Ir a la sección clientes.
-   1. Crear nuevo cliente
-      1. (opcional) Editar cliente
-      2. (opcional) Borrar cliente
-2. Ir a la sección Ropa
-   1. Crear nueva ropa
-      1. (opcional) Editar ropa
-      2. (opcional) Borrar ropa
-3. Volver al inicio por medio del navbar.
+1. Registrarse a través del boton "Registrarse"
+2. Iniciar sesión con los datos registrados.
+1. Ir a la sección del perfil.
+   1. Completar datos.
+   2. (opcional) Modificar los datos.
+2. Ir a la sección "listado de productos" en la barra de navegacion
+   1. Agregar nueva prenda
+   2. Listar las prendas disponibles.
+      1. (opcional) Editar prenda.
+      2. (opcional) Borrar prenda.
+3. Volver al inicio/home por medio de la barra de navegación.
+4. Cerrar sesion.
